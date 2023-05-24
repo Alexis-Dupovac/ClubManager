@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'react-native';
-import { StyleSheet, TextInput, View, Image } from 'react-native';
+import { StyleSheet, TextInput, View, Image, TouchableOpacity, Text } from 'react-native';
 import AddButton from './components/AddButton.js';
-import Modalpage2 from './components/Modalpage2.js';
 import Modalpage3 from './components/Modalpage3.js';
 
 export default function App() {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalPage3Visible, setIsModalPage3Visible] = useState(false);
+
   const handleCloseModal = () => {
     setIsModalVisible(false);
   }
@@ -16,29 +17,22 @@ export default function App() {
     setIsModalPage3Visible(true);
   }
 
-  const handleOpenApp = () => {
-    setIsModalVisible(false);
+  const handleRedirect = () => {
+    setIsModalVisible(true);
+    setIsModalPage3Visible(false);
+    // Ajoutez votre code de redirection ici
   };
-  
-  const [isModalPage3Visible, setIsModalPage3Visible] = useState(false);
 
   return (
     <View style={styles.container}>
       <Image source={require('./assets/Final_Logo.jpg')} style={styles.logo} />
       <TextInput style={styles.input} placeholder="Adresse e-mail" keyboardType="email-address" />
       <TextInput style={styles.input} placeholder="Mot de passe" secureTextEntry />
-      <AddButton content="Connexion" onPress={() => setIsModalVisible(true)}/>
-      <Modalpage2
-        visible={isModalVisible} onClose={handleCloseModal}
-        inscription="Pas encore inscrit ?"
-        inscription2="Inscrivez-vous !"
-        onOpenModalPage3={handleOpenModalPage3}
-      />
-      <Modalpage3
-        visible={isModalPage3Visible}
-        onClose={() => setIsModalPage3Visible(false)}
-        onOpenApp={handleOpenApp}
-      />
+      <AddButton content="Connexion" onPress={() => setIsModalVisible(true)} />
+      <Modalpage3 visible={isModalPage3Visible} onClose={() => setIsModalPage3Visible(false)} onRedirect={handleRedirect} />
+      <TouchableOpacity onPress={handleOpenModalPage3}>
+        <Text style={styles.signupText}>Pas encore inscrit ? <Text style={styles.signupLink}>Inscrivez-vous</Text> !</Text>
+      </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
   );
@@ -51,7 +45,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-    logo: {
+  logo: {
     width: 200,
     height: 200,
     marginBottom: 20,
@@ -67,5 +61,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter_400Regular',
     marginBottom: 12,
     color: 'white',
+  },
+  signupText: {
+    color: 'white',
+    marginTop: 16,
+  },
+  signupLink: {
+    color: '#002D72',
+    textDecorationLine: 'underline',
+    fontWeight: 'bold',
   },
 });

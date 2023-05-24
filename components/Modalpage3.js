@@ -8,6 +8,7 @@ const Modalpage3 = (props) => {
   
   const handleConfirm = () => {
     props.onClose();
+    props.onRedirect();
   };
   return (
     <Modal visible={props.visible} animationType="slide">
