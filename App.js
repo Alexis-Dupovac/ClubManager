@@ -15,12 +15,16 @@ export default function App() {
     setIsModalVisible(false);
     setIsModalPage3Visible(true);
   }
+
+  const handleOpenApp = () => {
+    setIsModalVisible(false);
+  };
   
   const [isModalPage3Visible, setIsModalPage3Visible] = useState(false);
 
   return (
     <View style={styles.container}>
-      <Image source={require('./assets/Final Logo.jpg')} style={styles.logo} />
+      <Image source={require('./assets/Final_Logo.jpg')} style={styles.logo} />
       <TextInput style={styles.input} placeholder="Adresse e-mail" keyboardType="email-address" />
       <TextInput style={styles.input} placeholder="Mot de passe" secureTextEntry />
       <AddButton content="Connexion" onPress={() => setIsModalVisible(true)}/>
@@ -30,7 +34,11 @@ export default function App() {
         inscription2="Inscrivez-vous !"
         onOpenModalPage3={handleOpenModalPage3}
       />
-      <Modalpage3 visible={isModalPage3Visible} />
+      <Modalpage3
+        visible={isModalPage3Visible}
+        onClose={() => setIsModalPage3Visible(false)}
+        onOpenApp={handleOpenApp}
+      />
       <StatusBar style="auto" />
     </View>
   );

@@ -3,11 +3,12 @@
     "name": "mon-app",
     "slug": "mon-app",
     "version": "1.0.0",
+    "sdkVersion": "48.0.15",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/Final_logo.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
