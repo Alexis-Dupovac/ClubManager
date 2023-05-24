@@ -20,7 +20,6 @@ export default function App() {
   const handleRedirect = () => {
     setIsModalVisible(true);
     setIsModalPage3Visible(false);
-    // Ajoutez votre code de redirection ici
   };
 
   return (
