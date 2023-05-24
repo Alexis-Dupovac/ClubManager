@@ -8,10 +8,6 @@ export default function App() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalPage3Visible, setIsModalPage3Visible] = useState(false);
 
-  const handleCloseModal = () => {
-    setIsModalVisible(false);
-  }
-  
   const handleOpenModalPage3 = () => {
     setIsModalVisible(false);
     setIsModalPage3Visible(true);
