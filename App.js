@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import { StyleSheet, TextInput, View, Image, TouchableOpacity, Text } from 'react-native';
-import AddButton from './components/AddButton.js';
 import Modalpage3 from './components/Modalpage3.js';
+import Auth from './Auth.js';
+import {getFootball} from './Fire.js';
 
 export default function App() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalPage3Visible, setIsModalPage3Visible] = useState(false);
+  const [filteredFootball, setFilteredFootball] = useState([]);
 
   const handleOpenModalPage3 = () => {
     setIsModalVisible(false);
@@ -18,13 +20,16 @@ export default function App() {
     setIsModalPage3Visible(false);
   };
 
+  useEffect (() => {
+    getFootball((football) => {
+      setFilteredFootball(football);
+    });
+  },[]);
   return (
     <View style={styles.container}>
-      <Image source={require('./assets/Final_Logo.jpg')} style={styles.logo} />
-      <TextInput style={styles.input} placeholder="Adresse e-mail" keyboardType="email-address" />
-      <TextInput style={styles.input} placeholder="Mot de passe" secureTextEntry />
-      <AddButton content="Connexion" onPress={() => setIsModalVisible(true)} />
+      <Image source={require('./assets/Final_logo.png')} style={styles.logo} />
       <Modalpage3 visible={isModalPage3Visible} onClose={() => setIsModalPage3Visible(false)} onRedirect={handleRedirect} />
+      <Auth onClose={() => setIsModalVisible(false)} />
       <TouchableOpacity onPress={handleOpenModalPage3}>
         <Text style={styles.signupText}>Pas encore inscrit ? <Text style={styles.signupLink}>Inscrivez-vous</Text> !</Text>
       </TouchableOpacity>

@@ -18,27 +18,27 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
 
-export const getMovies = callback => {
-  const q = query(collection(db, 'movies'), orderBy('title', 'asc'))
+export const getFootball = callback => {
+  const q = query(collection(db, 'football'), orderBy('title', 'asc'))
   onSnapshot(q, snapshot => {
-    let movies = []
+    let football = []
     snapshot.forEach(doc => {
-      movies.push({ id: doc.id, ...doc.data() })
+      football.push({ id: doc.id, ...doc.data() })
     })
-    callback(movies)
+    callback(football)
   })
 }
 
-export const addMovie = movie => {
-  addDoc(collection(db, 'movies'), movie)
+export const addFootball = football => {
+  addDoc(collection(db, 'football'), football)
 }
 
-export const updateMovie = movie => {
-  updateDoc(doc(db, 'movies', movie.id), movie)
+export const updateFootball = football => {
+  updateDoc(doc(db, 'football', football.id), football)
 }
 
-export const deleteMovie = movie => {
-  deleteDoc(doc(db, 'movies', movie.id))
+export const deleteFootball = football => {
+  deleteDoc(doc(db, 'football', football.id))
 }
 
-
+export { app };
