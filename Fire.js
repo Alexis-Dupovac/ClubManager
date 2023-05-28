@@ -15,8 +15,8 @@ const firebaseConfig = {
   measurementId: "G-Z69LZLD6QM"
 }
 
-const app = initializeApp(firebaseConfig)
-const db = getFirestore(app)
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
 
 export const getFootball = callback => {
   const q = query(collection(db, 'football'), orderBy('title', 'asc'))

@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { StyleSheet, Modal, View, TextInput, Text } from 'react-native';
 import AddButton from './AddButton.js';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../Fire.js';
+
 
 const Modalpage3 = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -21,6 +24,14 @@ const Modalpage3 = (props) => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       console.log('Utilisateur créé avec succès:', user);
+      const userDocRef = await addDoc(collection(db, 'user'), {
+        firstName: firstName,
+        lastName: lastName,
+        phoneNumber: phoneNumber,
+        email: email,
+        userId: user.uid, // Utilisez l'ID de l'utilisateur Firebase comme référence dans la collection "user"
+      });
+      console.log('Utilisateur ajouté à la collection "user" avec l\'ID:', userDocRef.id);
     } catch (error) {
       console.log('Erreur lors de la création de l\'utilisateur:', error);
     }
