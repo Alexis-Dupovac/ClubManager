@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Button,TouchableOpacity, Text, StyleSheet, Modal } from 'react-native';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { app } from './Fire.js';
 
 const Auth = ({ onClose }) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -16,6 +17,7 @@ const Auth = ({ onClose }) => {
       const user = userCredential.user;
       console.log(user);
       onClose();
+      setIsModalVisible(true);
     } catch (error) {
       const errorCode = error.code;
       let errorMessage = '';
@@ -52,8 +54,16 @@ const Auth = ({ onClose }) => {
         value={password}
         onChangeText={setPassword}
       />
-      <Button title="Connexion" onPress={handleLogin} />
+              <TouchableOpacity style={styles.buttonConnect} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Confirmer</Text>
+        </TouchableOpacity>
       {error && <Text style={styles.errorText}>{error}</Text>}
+      <Modal visible={isModalVisible} animationType="slide" transparent>
+        <View style={styles.modalContainer}>
+          <Text>Contenu de la modal</Text>
+          <Button title="Fermer" onPress={() => setIsModalVisible(false)} />
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -76,6 +86,20 @@ input: {
     fontFamily: 'Inter_400Regular',
     marginBottom: 12,
     color: 'white',
+  },
+  buttonConnect: {
+    width: '80%',
+    height: 50,
+    backgroundColor: 'blue',
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+    fontFamily: 'Inter_400Regular',
   },
   errorText: {
     color: 'red',

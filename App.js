@@ -31,7 +31,7 @@ export default function App() {
       <Modalpage3 visible={isModalPage3Visible} onClose={() => setIsModalPage3Visible(false)} onRedirect={handleRedirect} />
       <Auth onClose={() => setIsModalVisible(false)} />
       <TouchableOpacity onPress={handleOpenModalPage3}>
-        <Text style={styles.signupText}>Pas encore inscrit ? <Text style={styles.signupLink}>Inscrivez-vous</Text> !</Text>
+        <Text style={styles.signupText}>Pas encore inscrit ? <Text style={styles.signupLink}>Inscrivez-vous !</Text></Text>
       </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
   },
   signupText: {
     color: 'white',
-    marginTop: 16,
+    marginTop: 12,
+    marginBottom: 70,
   },
   signupLink: {
     color: '#002D72',
