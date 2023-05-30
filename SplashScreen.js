@@ -7,6 +7,10 @@ const SplashScreen = () => (
       style={styles.image}
       source={require('./assets/Terrain_foot.jpg')}
     />
+    <Image
+      style={styles.gif}
+      source={require('./assets/ballon_gif.gif')}  // G
+    />
   </View>
 );
 
@@ -20,7 +24,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
+    position: 'absolute',//G
   },
+  gif: {
+    width: 100,  
+    height: 100, 
+  },//G
 });
 
 export default SplashScreen;
