@@ -4,11 +4,13 @@ import { StyleSheet, TextInput, View, Image, TouchableOpacity, Text } from 'reac
 import Modalpage3 from './components/Modalpage3.js';
 import Auth from './Auth.js';
 import {getFootball} from './Fire.js';
+import SplashScreen from './SplashScreen'; //G
 
 export default function App() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalPage3Visible, setIsModalPage3Visible] = useState(false);
   const [filteredFootball, setFilteredFootball] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);//G
 
   const handleOpenModalPage3 = () => {
     setIsModalVisible(false);
@@ -24,7 +26,16 @@ export default function App() {
     getFootball((football) => {
       setFilteredFootball(football);
     });
+    setTimeout(() => {
+      setIsLoading(false);  //G Cacher le splash screen après 2 secondes
+    }, 2000);
+    
   },[]);
+  
+  if (isLoading) {
+    return <SplashScreen />;  //G Affiche le splash screen si isLoading est vrai
+  }
+  
   return (
     <View style={styles.container}>
       <Image source={require('./assets/Final_logo.png')} style={styles.logo} />
