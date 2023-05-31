@@ -38,6 +38,9 @@ const SideMenu = ({ toggleDrawer }) => {
     } else if (menuItem === 'Accueil') {
       navigation.navigate('Home');
     }
+    else if (menuItem === 'Statistiques') {
+      navigation.navigate('StatistiquesPage');
+    }
   };
   const menuItems = [
     { title: 'Accueil', icon: 'home' },
@@ -97,6 +100,9 @@ const HomePage = () => {
       console.error('Erreur lors de la récupération des licences depuis Firebase:', error);
     }
   };
+  const handleLicencesPresss = () => {
+    navigation.navigate('Licences');
+  };
   return (
     <View style={styles.container}>
       <ImageBackground source={backgroundImage} style={styles.backgroundImage} resizeMode="cover">
@@ -139,7 +145,7 @@ const HomePage = () => {
                 <Text style={styles.squareText}>Performances</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.squareContainer} onPress={handleLicencesPress}>
+            <TouchableOpacity style={styles.squareContainer} onPress={handleLicencesPresss}>
               <View style={styles.square}>
                 <Icon name="book" size={50} color="white" />
                 <Text style={styles.squareText}>Licences</Text>
