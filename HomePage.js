@@ -3,13 +3,12 @@ import { View, Text, TouchableOpacity, StyleSheet, Dimensions, ImageBackground, 
 import Drawer from 'react-native-drawer';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
-
+import {  getFirestore, getDocs, query, collection, where } from 'firebase/firestore';
 import backgroundImage from './assets/ronaldo.jpg';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
-// Header component with hamburger icon
 const Header = ({ toggleDrawer }) => (
   <View style={styles.header}>
     <TouchableOpacity onPress={toggleDrawer}>
@@ -19,11 +18,9 @@ const Header = ({ toggleDrawer }) => (
         <View style={styles.menuLine} />
       </View>
     </TouchableOpacity>
-    {/* Other header elements */}
   </View>
 );
 
-// Side menu component for the drawer
 const SideMenu = ({ toggleDrawer }) => {
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   const navigation = useNavigation();
@@ -33,14 +30,15 @@ const SideMenu = ({ toggleDrawer }) => {
     setSelectedMenuItem(menuItem);
     toggleDrawer();
 
-    // Navigation logic based on the selected menu item
-    if (menuItem === 'Licences') {
+    
+    if (menuItem === 'Profil') {
+      navigation.navigate('ProfilePage');
+    } else if (menuItem === 'Licences') {
       navigation.navigate('Licences');
     } else if (menuItem === 'Accueil') {
       navigation.navigate('Home');
     }
   };
-
   const menuItems = [
     { title: 'Accueil', icon: 'home' },
     { title: 'Profil', icon: 'user' },
@@ -53,6 +51,9 @@ const SideMenu = ({ toggleDrawer }) => {
     { title: 'Licences', icon: 'book' }
   ];
 
+
+
+ 
   return (
     <View style={styles.sideMenu}>
       {menuItems.map((item) => (
@@ -75,15 +76,27 @@ const SideMenu = ({ toggleDrawer }) => {
 const HomePage = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const navigation = useNavigation();
+  const [searchQuery, setSearchQuery] = useState('');
+
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
+  const handleLicencesPress = async () => {
+    try {
+      const db = getFirestore();
+      const q = query(collection(db, 'licences'), where('Nom', '==', searchQuery));
+      const querySnapshot = await getDocs(q);
 
-  const handleLicencesPress = () => {
-    navigation.navigate('Licences');
+      if (!querySnapshot.empty) {
+        navigation.navigate('Licences', { searchQuery });
+      } else {
+        alert('Le nom recherché n\'existe pas');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la récupération des licences depuis Firebase:', error);
+    }
   };
-
   return (
     <View style={styles.container}>
       <ImageBackground source={backgroundImage} style={styles.backgroundImage} resizeMode="cover">
@@ -107,8 +120,10 @@ const HomePage = () => {
                 style={styles.searchInput}
                 placeholder="Rechercher"
                 placeholderTextColor="white"
+                onChangeText={text => setSearchQuery(text)}
+                value={searchQuery}
               />
-              <TouchableOpacity style={styles.searchButton}>
+              <TouchableOpacity style={styles.searchButton}onPress={handleLicencesPress}>
                 <Icon name="search" size={20} color="white" />
               </TouchableOpacity>
             </View>
@@ -243,4 +258,3 @@ const styles = StyleSheet.create({
 });
 
 export default HomePage;
-
