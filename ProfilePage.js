@@ -7,7 +7,7 @@ const ProfilePage = () => {
   const profileData = {
     name: 'John Cena',
     role: 'Entraîneur',
-    experience: 10, // en années
+    experience: 10, 
     qualifications: ['UEFA Pro License', 'Brevet éducateur sportif'],
   };
 
