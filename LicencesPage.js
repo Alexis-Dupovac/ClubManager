@@ -86,7 +86,7 @@ const LicencesPage = ({ navigation }) => {
   };
 
   const handleViewPdf = (id) => {
-    // Add your view pdf function here
+   // pas fait compliqué
   };
 
   return (
