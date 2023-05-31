@@ -60,7 +60,7 @@ const LicencesPage = ({ navigation }) => {
   };
 
   const handleEdit = (id) => {
-    // Add your edit function here
+    navigation.navigate('EditLicencePage', { licenceId: id });
   };
 
   const handleDeleteConfirmation = (id) => {
@@ -266,6 +266,13 @@ const styles = StyleSheet.create({
 });
 
 export default LicencesPage;
+
+
+
+
+
+
+
 
 
 
